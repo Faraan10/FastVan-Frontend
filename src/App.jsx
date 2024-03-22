@@ -4,12 +4,14 @@ import UpdateOrder from "./components/UpdateOrder";
 import TrackOrder from "./components/TrackOrder";
 import NotFound from "./components/NotFound";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
+import "./App.css";
 
 function App() {
 	return (
 		<>
 			<BrowserRouter>
 				<Navbar />
+				<hr />
 				<Routes>
 					<Route path="/" element={<CreateOrder />} />
 					<Route path="/update/:id" element={<UpdateOrder />} />

@@ -5,10 +5,14 @@ import { useNavigate } from "react-router-dom";
 
 const Navbar = () => {
 	return (
-		<nav className="navbar navbar-expand-lg bg-body" data-bs-theme="dark">
+		<nav className="navbar navbar-expand-lg bg-body">
 			<div className="container">
 				<Link to="/" className="navbar-brand" style={{ fontSize: "30px" }}>
-					Sendle
+					<img
+						src="https://cdn.freelogovectors.net/wp-content/uploads/2021/09/sendle-logo-freelogovectors.net_.png"
+						alt="logo"
+						style={{ height: "40px" }}
+					/>
 				</Link>
 				<button
 					className="navbar-toggler"
@@ -24,23 +28,21 @@ const Navbar = () => {
 				<div className="collapse navbar-collapse" id="navbarSupportedContent">
 					<ul className="navbar-nav me-auto mb-2 mb-lg-0">
 						<li className="nav-item">
-							<Link to="/" className="nav-link active" aria-current="page">
-								Home
-							</Link>
-						</li>
-						<li className="nav-item">
-							<Link to="/update" className="nav-link active">
-								Update Order
-							</Link>
-						</li>
-						<li className="nav-item">
-							<Link to="/track" className="nav-link active">
-								Track Order
+							<Link
+								to="/"
+								className="nav-link active"
+								style={{ marginTop: "10px", fontSize: "17px", fontWeight: "500" }}
+								aria-current="page"
+							>
+								HOME
 							</Link>
 						</li>
 					</ul>
 					<ul className="navbar-nav ml-auto mb-2 mb-lg-0">
-						<li className="nav-item dropdown" style={{ marginRight: "80px" }}>
+						<li
+							className="nav-item dropdown"
+							style={{ marginRight: "80px", marginTop: "10px", fontSize: "17px", fontWeight: "500" }}
+						>
 							<a
 								className="nav-link active dropdown-toggle"
 								href="/"
@@ -48,7 +50,7 @@ const Navbar = () => {
 								data-bs-toggle="dropdown"
 								aria-expanded="false"
 							>
-								Hello User
+								Hey User
 							</a>
 							<ul className="dropdown-menu">
 								<li>

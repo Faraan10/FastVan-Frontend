@@ -1,8 +1,9 @@
 import axios from "axios";
+import { url } from "../constants";
 
 const GetCartApi = async () => {
 	const response = await axios({
-		url: "http://localhost:5000/orders/",
+		url: `${url}/orders/`,
 		method: "GET",
 		headers: { "Content-Type": "application/json" },
 	});

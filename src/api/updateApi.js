@@ -1,8 +1,9 @@
 import axios from "axios";
+import { url } from "../constants";
 
 const putApi = async (data, id) => {
 	const response = await axios({
-		url: `http://localhost:5000/orders/${id}`,
+		url: `${url}/orders/${id}`,
 		method: "PUT",
 		headers: { "Content-Type": "application/json" },
 		data: JSON.stringify(data),

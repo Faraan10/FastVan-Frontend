@@ -287,6 +287,7 @@ const CreateOrder = () => {
 								<th scope="col">Email</th>
 								<th scope="col">Receiver Name</th>
 								<th scope="col">Number</th>
+								<th scope="col">Order Status</th>
 								<th scope="col">Actions</th>
 							</tr>
 						</thead>
@@ -302,6 +303,7 @@ const CreateOrder = () => {
 										<td>{emp.email}</td>
 										<td>{emp.receiverName}</td>
 										<td>{emp.phone}</td>
+										<td>In Transit</td>
 										<td>
 											<div style={{ display: "flex" }}>
 												<Link to={`/update/${emp._id}`}>

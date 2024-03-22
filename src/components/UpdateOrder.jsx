@@ -69,9 +69,7 @@ const UpdateOrder = () => {
 
 	return (
 		<div>
-			<h3>UpdateOrder</h3>
-
-			<h2 style={{ marginTop: "30px", fontWeight: "bold" }}>Send Parcel</h2>
+			<h2 style={{ marginTop: "50px", fontWeight: "bold" }}>Update Order Details</h2>
 			<br />
 			<br />
 			<h4 style={{ marginBottom: "30px", marginTop: "20px" }}>Where are you sending from ?</h4>
