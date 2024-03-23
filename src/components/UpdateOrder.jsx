@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import updateApi from "../api/updateApi";
 import getSingleApi from "../api/getSingleApi";
+import { toast } from "react-toastify";
 
 const UpdateOrder = () => {
 	const { id } = useParams();
@@ -53,10 +54,12 @@ const UpdateOrder = () => {
 		e.preventDefault();
 
 		const response = await updateApi(info, id);
+		// console.log(response);
 		if (response.status) {
-			alert(response.data.message);
+			toast.error(response.data.message);
 			return;
 		}
+		toast.success("Order Updated");
 		navigate("/");
 	};
 

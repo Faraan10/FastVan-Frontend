@@ -2,7 +2,7 @@ import axios from "axios";
 import { url } from "../constants";
 
 const getSingleApi = async (id) => {
-	console.log(id);
+	//console.log(id);
 	const response = await axios({
 		url: `${url}/orders/${id}`,
 		method: "GET",

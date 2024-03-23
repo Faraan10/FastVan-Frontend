@@ -3,6 +3,8 @@ import getApi from "../api/getApi";
 import postApi from "../api/postApi";
 import deleteApi from "../api/deleteApi";
 import { Link } from "react-router-dom";
+import { toast } from "react-toastify";
+import Spinner from "../components/Spinner";
 
 const CreateOrder = () => {
 	const [info, setInfo] = useState({
@@ -23,6 +25,8 @@ const CreateOrder = () => {
 	const [data, setData] = useState([]);
 	const [search, setSearch] = useState("");
 
+	const [loading, setLoading] = useState(false);
+
 	const {
 		senderName,
 		number,
@@ -40,6 +44,7 @@ const CreateOrder = () => {
 
 	const getData = async () => {
 		const response = await getApi();
+		setLoading(false);
 		setData(response);
 	};
 
@@ -60,7 +65,7 @@ const CreateOrder = () => {
 
 		const response = await postApi(info);
 		if (response.status) {
-			alert(response.data.message);
+			toast.error(response.data.message);
 			return;
 		}
 		setInfo({
@@ -77,10 +82,12 @@ const CreateOrder = () => {
 			parcelHeight: "",
 			parcelWidth: "",
 		});
+		toast.success("Order Created");
 		getData();
 	};
 
 	useEffect(() => {
+		setLoading(true);
 		getData();
 	}, []);
 
@@ -247,7 +254,7 @@ const CreateOrder = () => {
 									required
 									value={parcelHeight}
 									onChange={handleChange}
-									placeholder="Height"
+									placeholder="Height cm"
 								/>
 							</p>
 						</div>
@@ -260,7 +267,7 @@ const CreateOrder = () => {
 									required
 									value={parcelWidth}
 									onChange={handleChange}
-									placeholder="Width"
+									placeholder="Width cm"
 								/>
 							</p>
 						</div>
@@ -268,59 +275,63 @@ const CreateOrder = () => {
 					<input type="submit" value="Create Order" className="btn btn-primary" />
 				</form>
 
-				<div className="container" style={{ marginTop: "10%", textAlign: "center" }}>
-					<h3>Track Order</h3>
-					<form className="d-flex" role="search" style={{ marginTop: "20px", marginBottom: "50px" }}>
-						<input
-							className="form-control me-2"
-							type="search"
-							onChange={(e) => setSearch(e.target.value)}
-							placeholder="Enter Order Id"
-							aria-label="Search"
-						/>
-					</form>
-					<table className="table table-dark table-striped">
-						<thead>
-							<tr>
-								<th scope="col">Order Id</th>
-								<th scope="col">Sender Name</th>
-								<th scope="col">Email</th>
-								<th scope="col">Receiver Name</th>
-								<th scope="col">Number</th>
-								<th scope="col">Order Status</th>
-								<th scope="col">Actions</th>
-							</tr>
-						</thead>
-						<tbody>
-							{orders
-								?.filter((emp) => {
-									return search.toLowerCase() === "" ? emp : emp._id.includes(search);
-								})
-								?.map((emp) => (
-									<tr key={emp._id}>
-										<td>{emp._id}</td>
-										<td>{emp.senderName}</td>
-										<td>{emp.email}</td>
-										<td>{emp.receiverName}</td>
-										<td>{emp.phone}</td>
-										<td>In Transit</td>
-										<td>
-											<div style={{ display: "flex" }}>
-												<Link to={`/update/${emp._id}`}>
-													<button type="button" className="btn btn-warning" style={{ marginRight: "10px" }}>
-														Update
+				<h3 style={{ marginTop: "10%", textAlign: "center" }}>Track Order</h3>
+				{loading ? (
+					<Spinner />
+				) : (
+					<div className="container" style={{ textAlign: "center" }}>
+						<form className="d-flex" role="search" style={{ marginTop: "20px", marginBottom: "50px" }}>
+							<input
+								className="form-control me-2"
+								type="search"
+								onChange={(e) => setSearch(e.target.value)}
+								placeholder="Enter Order Id"
+								aria-label="Search"
+							/>
+						</form>
+						<table className="table table-dark table-striped">
+							<thead>
+								<tr>
+									<th scope="col">Order Id</th>
+									<th scope="col">Sender Name</th>
+									<th scope="col">Email</th>
+									<th scope="col">Receiver Name</th>
+									<th scope="col">Number</th>
+									<th scope="col">Order Status</th>
+									<th scope="col">Actions</th>
+								</tr>
+							</thead>
+							<tbody>
+								{orders
+									?.filter((emp) => {
+										return search.toLowerCase() === "" ? emp : emp._id.includes(search);
+									})
+									?.map((emp) => (
+										<tr key={emp._id}>
+											<td>{emp._id}</td>
+											<td>{emp.senderName}</td>
+											<td>{emp.email}</td>
+											<td>{emp.receiverName}</td>
+											<td>{emp.phone}</td>
+											<td>In Transit</td>
+											<td>
+												<div style={{ display: "flex" }}>
+													<Link to={`/update/${emp._id}`}>
+														<button type="button" className="btn btn-warning" style={{ marginRight: "10px" }}>
+															Update
+														</button>
+													</Link>
+													<button type="button" className="btn btn-danger" onClick={() => deleteData(emp._id)}>
+														Delete
 													</button>
-												</Link>
-												<button type="button" className="btn btn-danger" onClick={() => deleteData(emp._id)}>
-													Delete
-												</button>
-											</div>
-										</td>
-									</tr>
-								))}
-						</tbody>
-					</table>
-				</div>
+												</div>
+											</td>
+										</tr>
+									))}
+							</tbody>
+						</table>
+					</div>
+				)}
 			</div>
 		</>
 	);
